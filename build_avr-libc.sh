@@ -9,11 +9,12 @@ confMake()
 }
 
 # Make AVR-LibC
-echo "Making AVR-LibC..."
-echo "Extracting..."
+echo "*** Making AVR-LibC ***"
+echo "Extracting ..."
 bunzip2 -c $NAME_LIBC.tar.bz2 | tar xf -
 mkdir -p $NAME_LIBC/obj-avr
 cd $NAME_LIBC/obj-avr
+echo "confMake ..."
 confMake "$PREFIX_LIBC" "$OPTS_LIBC" --host=avr --build=`../config.guess`
 cd ../../
 
