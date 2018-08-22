@@ -39,9 +39,9 @@ env:
 before_install:
 - gcc --version && g++ --version
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
-- wget ftp://ftp.mirrorservice.org/sites/ftp.gnu.org/gnu/binutils/$NAME_BINUTILS.tar.xz
-- wget ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/$NAME_GCC/$NAME_GCC.tar.xz
-- wget ftp://ftp.mirrorservice.org/sites/download.savannah.gnu.org/releases/avr-libc/$NAME_LIBC.tar.bz2
+- wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
+- wget http://mirror.rit.edu/gnu/gcc/${NAME_GCC}/${NAME_GCC}.tar.xz
+- wget http://download.savannah.gnu.org/releases/avr-libc/${NAME_LIBC}.tar.bz2
 
 script:
 - sh build.sh
