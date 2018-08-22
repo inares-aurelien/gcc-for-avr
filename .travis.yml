@@ -17,6 +17,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - gcc-8
+      - g++-8
       - wget
       - bzip2
       - binutils
@@ -42,10 +43,10 @@ before_install:
 - df -h
 - gcc-8 --version
 - g++-8 --version
-- sudo updatedb
-- locate gcc-8
-# - export CC="gcc-8"
-# - export CXX="g++-8"
+# - sudo updatedb
+# - locate gcc-8
+- export CC="gcc-8"
+- export CXX="g++-8"
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
 - wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
 - wget http://mirror.rit.edu/gnu/gcc/${NAME_GCC}/${NAME_GCC}.tar.xz
