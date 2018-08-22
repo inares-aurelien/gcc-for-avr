@@ -33,13 +33,12 @@ env:
   - OPTS_LIBC=""
   - PREFIX_LINUX=/home/travis/build/inares/avr-gcc/linux
   - PREFIX_LIBC=/home/travis/build/inares/avr-gcc/libc
-  - CC="gcc-8"
-  - CXX="g++-8"
   # - LANG="fr_FR.UTF-8"   
 
 before_install:
 - pwd
-- gcc --version && g++ --version
+- export CC="gcc-8"
+- export CXX="g++-8"
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
 - wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
 - wget http://mirror.rit.edu/gnu/gcc/${NAME_GCC}/${NAME_GCC}.tar.xz
