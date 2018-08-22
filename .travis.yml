@@ -20,6 +20,7 @@ addons:
       - wget
       - bzip2
       - binutils
+      - locate
       # - texinfo
 
 env:
@@ -38,8 +39,13 @@ env:
 
 before_install:
 - pwd
-- export CC="gcc-8"
-- export CXX="g++-8"
+- df -h
+- gcc-8 --version
+- g++-8 --version
+- sudo updatedb
+- locate gcc-8
+# - export CC="gcc-8"
+# - export CXX="g++-8"
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
 - wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
 - wget http://mirror.rit.edu/gnu/gcc/${NAME_GCC}/${NAME_GCC}.tar.xz
@@ -49,3 +55,6 @@ script:
 - sh build_binutils.sh
 - sh build_gcc.sh
 - sh build_avr-libc.sh
+
+after_script:
+- df -h
