@@ -15,6 +15,7 @@ tar xf $NAME_GCC.tar.xz
 mkdir -p $NAME_GCC/obj-avr
 cd $NAME_GCC
 echo "Installing dependencies ..."
+sed -i 's/ftp:\/\/gcc\.gnu\.org/http:\/\/gcc\.gnu\.org/' ./contrib/download_prerequisites
 ./contrib/download_prerequisites
 cd obj-avr
 echo "confMake ..."

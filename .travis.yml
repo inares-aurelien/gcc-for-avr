@@ -11,6 +11,8 @@ branches:
 
 addons:
   apt:
+    config:
+      retries: true
     sources:
       - ubuntu-toolchain-r-test
     packages:
@@ -29,8 +31,8 @@ env:
   - OPTS_BINUTILS="--target=avr --disable-nls"
   - OPTS_GCC="--target=avr --enable-languages=c,c++ --disable-nls --disable-libssp --disable-libada --with-dwarf2 --disable-shared --enable-static"
   - OPTS_LIBC=""
-  - PREFIX_LINUX=/home/build/linux
-  - PREFIX_LIBC=/home/build/libc
+  - PREFIX_LINUX=/home/travis/build/inares/avr-gcc/linux
+  - PREFIX_LIBC=/home/travis/build/inares/avr-gcc/libc
   - CC="gcc-8"
   - CXX="g++-8"
   # - LANG="fr_FR.UTF-8"   
