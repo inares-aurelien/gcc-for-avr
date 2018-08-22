@@ -1,0 +1,47 @@
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+- gcc
+os:
+- linux
+branches:
+  only:
+  - master
+
+addons:
+  apt:
+    # update: true
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-8
+      - wget
+      - bzip2
+      - binutils
+
+env:
+  global:
+  - LANG="en_US.UTF-8"   
+  - JOBCOUNT=2
+  - NAME_BINUTILS="binutils-2.31.1"
+  - NAME_GCC="gcc-8.2.0"
+  - NAME_LIBC="avr-libc-2.0.0"
+  - OPTS_BINUTILS="--target=avr --disable-nls"
+  - OPTS_GCC="--target=avr --enable-languages=c,c++ --disable-nls --disable-libssp --disable-libada --with-dwarf2 --disable-shared --enable-static"
+  - OPTS_LIBC=""
+  - PREFIX_LINUX=./build/linux
+  - PREFIX_LIBC=./build/libc
+  - CC="gcc-8"
+  - CXX="g++-8"
+  # - LANG="fr_FR.UTF-8"   
+
+before_install:
+- gcc --version && g++ --version
+- export PATH="$PATH":"$PREFIX_LINUX"/bin
+- wget ftp://ftp.mirrorservice.org/sites/ftp.gnu.org/gnu/binutils/$NAME_BINUTILS.tar.xz
+- wget ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/$NAME_GCC/$NAME_GCC.tar.xz
+- wget ftp://ftp.mirrorservice.org/sites/download.savannah.gnu.org/releases/avr-libc/$NAME_LIBC.tar.bz2
+
+script:
+- sh build.sh
