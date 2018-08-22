@@ -19,7 +19,7 @@ sed -i 's/ftp:\/\/gcc\.gnu\.org/http:\/\/gcc\.gnu\.org/' ./contrib/download_prer
 ./contrib/download_prerequisites
 cd obj-avr
 echo "confMake ..."
-confMake "$PREFIX_LINUX" "$OPTS_GCC"
+confMake "$PREFIX_LINUX" "$OPTS_GCC" > /dev/null
 cd ../../
 
 echo ""

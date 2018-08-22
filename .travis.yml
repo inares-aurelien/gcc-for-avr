@@ -20,6 +20,7 @@ addons:
       - wget
       - bzip2
       - binutils
+      # - texinfo
 
 env:
   global:

@@ -15,7 +15,7 @@ bunzip2 -c $NAME_LIBC.tar.bz2 | tar xf -
 mkdir -p $NAME_LIBC/obj-avr
 cd $NAME_LIBC/obj-avr
 echo "confMake ..."
-confMake "$PREFIX_LIBC" "$OPTS_LIBC" --host=avr --build=`../config.guess`
+confMake "$PREFIX_LIBC" "$OPTS_LIBC" --host=avr --build=`../config.guess` > /dev/null
 cd ../../
 
 echo ""
