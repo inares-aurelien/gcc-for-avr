@@ -11,7 +11,6 @@ branches:
 
 addons:
   apt:
-    # update: true
     sources:
       - ubuntu-toolchain-r-test
     packages:
@@ -30,13 +29,14 @@ env:
   - OPTS_BINUTILS="--target=avr --disable-nls"
   - OPTS_GCC="--target=avr --enable-languages=c,c++ --disable-nls --disable-libssp --disable-libada --with-dwarf2 --disable-shared --enable-static"
   - OPTS_LIBC=""
-  - PREFIX_LINUX=./build/linux
-  - PREFIX_LIBC=./build/libc
+  - PREFIX_LINUX=/home/build/linux
+  - PREFIX_LIBC=/home/build/libc
   - CC="gcc-8"
   - CXX="g++-8"
   # - LANG="fr_FR.UTF-8"   
 
 before_install:
+- pwd
 - gcc --version && g++ --version
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
 - wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
@@ -44,4 +44,6 @@ before_install:
 - wget http://download.savannah.gnu.org/releases/avr-libc/${NAME_LIBC}.tar.bz2
 
 script:
-- sh build.sh
+- sh build_binutils.sh
+- sh build_gcc.sh
+- sh build_avr-libc.sh
