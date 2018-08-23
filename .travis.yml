@@ -16,37 +16,33 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-8
-      - g++-8
+      # - gcc-8
+      # - g++-8
       - wget
       - bzip2
-      - binutils
-      - locate
+      # - binutils
+      # - locate
       # - texinfo
 
 env:
   global:
+  # - LANG="fr_FR.UTF-8"   
   - LANG="en_US.UTF-8"   
   - JOBCOUNT=2
-  - NAME_BINUTILS="binutils-2.31.1"
-  - NAME_GCC="gcc-8.2.0"
-  - NAME_LIBC="avr-libc-2.0.0"
-  - OPTS_BINUTILS="--target=avr --disable-nls"
-  - OPTS_GCC="--target=avr --enable-languages=c,c++ --disable-nls --disable-libssp --disable-libada --with-dwarf2 --disable-shared --enable-static"
-  - OPTS_LIBC=""
+  - VER_BINUTILS="binutils-2.31.1"
+  - VER_GCC="gcc-8.2.0"
+  - VER_LIBC="avr-libc-2.0.0"
   - PREFIX_LINUX=/home/travis/build/inares/avr-gcc/linux
   - PREFIX_LIBC=/home/travis/build/inares/avr-gcc/libc
-  # - LANG="fr_FR.UTF-8"   
 
 before_install:
 - pwd
 - df -h
-- gcc-8 --version
-- g++-8 --version
-# - sudo updatedb
-# - locate gcc-8
-- export CC="gcc-8"
-- export CXX="g++-8"
+# - gcc-8 --version
+# - g++-8 --version
+# - export CC="gcc-8"
+# - export CXX="g++-8"
+- unset CC CXX
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
 - wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
 - wget http://mirror.rit.edu/gnu/gcc/${NAME_GCC}/${NAME_GCC}.tar.xz
@@ -54,8 +50,11 @@ before_install:
 
 script:
 - sh build_binutils.sh
-- travis_wait 30 sh build_gcc.sh
+- ll $PREFIX_LINUX
+- travis_wait 45 sh build_gcc.sh
+- ll $PREFIX_LINUX
 - sh build_avr-libc.sh
+- ll $PREFIX_LIBC
 
 after_script:
 - df -h
