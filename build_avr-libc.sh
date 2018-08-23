@@ -1,22 +1,20 @@
 #!/bin/bash
-
-confMake()
-{
-  ../configure --prefix=$1 $2 $3 $4
-  make -j $JOBCOUNT
-  make install-strip
-  rm -rf *
-}
+# https://www.nongnu.org/avr-libc/user-manual/install_tools.html#install_avr_libc
 
 # Make AVR-LibC
-echo "*** Making AVR-LibC ***"
-echo "Extracting ..."
-bunzip2 -c $NAME_LIBC.tar.bz2 | tar xf -
-mkdir -p $NAME_LIBC/obj-avr
-cd $NAME_LIBC/obj-avr
-echo "confMake ..."
-confMake "$PREFIX_LIBC" "$OPTS_LIBC" --host=avr --build=`../config.guess` > /dev/null
-cd ../../
+echo "\n*** Making AVR-LibC ***"
 
+echo "Extracting ..."
+tar xjf $NAME_LIBC.tar.bz2
+cd $NAME_LIBC
+
+echo -e "\n\nConfigure ..."
+./configure --prefix="$PREFIX_LIBC" --build=`./config.guess` --host=avr "$OPTS_LIBC"
+
+echo -e "\n\nMake ..."
+make -j $JOBCOUNT
+make install
+
+cd ../
 echo ""
 
