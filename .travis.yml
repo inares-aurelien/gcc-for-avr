@@ -54,7 +54,7 @@ before_install:
 
 script:
 - sh build_binutils.sh
-- sh build_gcc.sh
+- travis_wait 30 sh build_gcc.sh
 - sh build_avr-libc.sh
 
 after_script:
