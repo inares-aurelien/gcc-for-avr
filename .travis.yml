@@ -50,11 +50,11 @@ before_install:
 
 script:
 - sh build_binutils.sh
-- ll $PREFIX_LINUX
+- ls -alh $PREFIX_LINUX
 - travis_wait 45 sh build_gcc.sh
-- ll $PREFIX_LINUX
+- ls -alh $PREFIX_LINUX
 - sh build_avr-libc.sh
-- ll $PREFIX_LIBC
+- ls -alh $PREFIX_LIBC
 
 after_script:
 - df -h
