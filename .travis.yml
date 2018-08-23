@@ -23,13 +23,20 @@ branches:
       # - binutils
       # - locate
       # - texinfo
+cache:
+  directories:
+    - /home/travis/build/inares/avr-gcc/
+    - /home/travis/build/inares/gcc-for-avr/binutils-2.31.1/obj-avr
+    - /home/travis/build/inares/gcc-for-avr/gcc-8.2.0/obj-avr
+    - /home/travis/build/inares/gcc-for-avr/avr-libc-2.0.0
 
 git:
   depth: 1
 
 env:
   global:
-  # - LANG="fr_FR.UTF-8"   
+  # - LANG="fr_FR.UTF-8"
+  - free -h
   - LANG="en_US.UTF-8"   
   - JOBCOUNT=2
   - VER_BINUTILS="binutils-2.31.1"
@@ -47,17 +54,27 @@ before_install:
 # - export CXX="g++-8"
 - unset CC CXX
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
-- wget http://ftp.gnu.org/gnu/binutils/${VER_BINUTILS}.tar.xz
-- wget http://mirror.rit.edu/gnu/gcc/${VER_GCC}/${VER_GCC}.tar.xz
-- wget http://download.savannah.gnu.org/releases/avr-libc/${VER_LIBC}.tar.bz2
 
 script:
 - sh build_binutils.sh
-- ls -alh $PREFIX_LINUX/bin
-- travis_wait 45 sh build_gcc.sh
-- ls -alh $PREFIX_LINUX/bin
+- travis_wait 60 sh build_gcc.sh
 - sh build_avr-libc.sh
-- ls -alh $PREFIX_LIBC
 
 after_script:
-- df -h
+- ls -alh $PREFIX_LINUX/bin
+- ls -alh $PREFIX_LIBC/bin
+- du -h --max-depth=1
+
+before_deploy:
+  - git config --local user.name "INARES"
+  - git config --local user.email "dev@inares.org"
+  - git tag avr-gcc-8.2.0
+  
+deploy:
+  provider: releases
+  api_key:
+    secure: lLWtrqrv7o6gb9i0H+z4a8iOX28qf1VIu+Ld2/yzkk6cvneQrGrmVTald8mMbyIi7WkrD/uqHHf/1JIJdw5hrXanwdheFzcLXfJfzy0Ysk7K8VjYioM6YES7ipLKFroEuZp0VyUKoA0xmvWNk5efNlNelBUremlfg3Y+/+mnvQj7klzZGOkNi7gXsoE7Sm9tK1SX6MnZyD/7IueFSK/Ku74kfn7t4WtDQspsGKF21O6zw069EOeT9/BIHNYbRYDTGcfGkctvvil+LsHZTHXgKqGgVT3wR4RkCZ/UkRAHCNuIFRDJZDu2kuGUrz4+LdY8SkPcaycvbv/v0zbwsMARpTaLoqJJbZzC/VXEMzTwGzl+u0G5JVnJoS8q0606OgM0zlio8xVIdk/+KrVVXlSUWNl6U48fLADZlXgT7eKwKosemUdGG16HuZFOBw06BECg3aMZRFh+l7PJpopb040LTCeX7L3iAHRbKKlJHH8Wrq/2R3HxEPfexXjsO4otjMMqPXXfx7LNZQDBDpwQsqmRG/TDw603gJcQ2IHjaq0H9l+7JGNqfpExnzyIbOwiVn6YHU/3DpFSrIFsuCG8O0BTfp7b9vhkFwXHMTldhsoUcOfIy2hNSsfDdy4xPUkBeQ+/uGyUrFsAUiBXMayOfzzAhJveCXXvcV7TMTnHFcy3XNg=
+  file: "FILE TO UPLOAD"
+  skip_cleanup: true
+  overwrite: true
+

@@ -2,20 +2,24 @@
 # https://www.nongnu.org/avr-libc/user-manual/install_tools.html#install_avr_libc
 
 # Make AVR-LibC
-echo "\n*** Making AVR-LibC ***\n"
+MYNAME="avr-libc"
+echo "\n*** Making ${MYNAME} ***\n"
 
-echo  "\n\nExtracting ...\n"
-tar xjf $VER_LIBC.tar.bz2
+echo "\n\nDownloading and extracting ${MYNAME} ...\n"
+if [ ! -d "${VER_BINUTILS}" ]; then
+  wget http://download.savannah.gnu.org/releases/avr-libc/${VER_LIBC}.tar.bz2 &&
+  tar xjf ${VER_LIBC}.tar.bz2
+fi
 
-echo "\n\nConfigure ...\n"
-cd $VER_LIBC
-./configure --prefix="$PREFIX_LIBC" --build=`./config.guess` --host=avr
+echo "\n\nConfigure ${MYNAME} ...\n"
+cd ${VER_LIBC} &&
+./configure --prefix="$PREFIX_LIBC" --build=`./config.guess` --host=avr > /dev/null &&
 
-echo "\n\nBuild ...\n"
-make -j $JOBCOUNT > /dev/null
+echo "\n\nBuild ${MYNAME} ...\n" &&
+make -j $JOBCOUNT > /dev/null &&
 
-echo "\n\nInstall ...\n"
-make install
+echo "\n\nInstall ${MYNAME} ...\n" &&
+make install > /dev/null &&
 
-cd ../
+cd ../ &&
 echo ""
