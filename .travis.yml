@@ -44,9 +44,9 @@ before_install:
 # - export CXX="g++-8"
 - unset CC CXX
 - export PATH="$PATH":"$PREFIX_LINUX"/bin
-- wget http://ftp.gnu.org/gnu/binutils/${NAME_BINUTILS}.tar.xz
-- wget http://mirror.rit.edu/gnu/gcc/${NAME_GCC}/${NAME_GCC}.tar.xz
-- wget http://download.savannah.gnu.org/releases/avr-libc/${NAME_LIBC}.tar.bz2
+- wget http://ftp.gnu.org/gnu/binutils/${VER_BINUTILS}.tar.xz
+- wget http://mirror.rit.edu/gnu/gcc/${VER_GCC}/${VER_GCC}.tar.xz
+- wget http://download.savannah.gnu.org/releases/avr-libc/${VER_LIBC}.tar.bz2
 
 script:
 - sh build_binutils.sh
