@@ -9,20 +9,23 @@ branches:
   only:
   - master
 
-addons:
-  apt:
-    config:
-      retries: true
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
+#addons:
+#  apt:
+#    config:
+#      retries: true
+#    sources:
+#      - ubuntu-toolchain-r-test
+#    packages:
       # - gcc-8
       # - g++-8
-      - wget
-      - bzip2
+#      - wget
+#      - bzip2
       # - binutils
       # - locate
       # - texinfo
+
+git:
+  depth: 1
 
 env:
   global:
@@ -50,9 +53,9 @@ before_install:
 
 script:
 - sh build_binutils.sh
-- ls -alh $PREFIX_LINUX
+- ls -alh $PREFIX_LINUX/bin
 - travis_wait 45 sh build_gcc.sh
-- ls -alh $PREFIX_LINUX
+- ls -alh $PREFIX_LINUX/bin
 - sh build_avr-libc.sh
 - ls -alh $PREFIX_LIBC
 
