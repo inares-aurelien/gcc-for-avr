@@ -7,7 +7,7 @@ echo "\n*** Making ${MYNAME} ***\n"
 
 $PREFIX/bin/avr-objdump --version || true
 VER_BIN=$($PREFIX/bin/avr-objdump --version | sed -n "/${VER_BINUTILS}/p")
-if [ "$($PREFIX/bin/avr-objdump --version)" -eq "$VER_BINUTILS" ] ; then
+if [ ! -z "$VER_BIN" ] ; then
   echo "${MYNAME} is already OK for version ${VER_BINUTILS} --> We will do nothing"
   exit 0
 fi
