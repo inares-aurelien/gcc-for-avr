@@ -3,7 +3,7 @@ MCU      = atmega328p
 OPTIMIZE = -Ofast
 
 DEFS     =
-LIBS     =
+LIBS     = -L/home/travis/build/inares/avr-gcc/share -I/home/travis/build/inares/avr-gcc/include
 
 PREFIX   = /home/travis/build/inares/avr-gcc/bin/
 CC       = $(PREFIX)avr-gcc
