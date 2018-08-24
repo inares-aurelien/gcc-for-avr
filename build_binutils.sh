@@ -13,7 +13,7 @@ fi
 
 echo "\n\nConfigure ${MYNAME} ...\n"
 mkdir -p ${VER_BINUTILS}/obj-avr && cd ${VER_BINUTILS}/obj-avr &&
-../configure --prefix="$PREFIX_LINUX" --target=avr --disable-nls > /dev/null &&
+../configure --prefix="$PREFIX" --target=avr --disable-nls > /dev/null &&
 
 echo "\n\nBuild ${MYNAME} ...\n" &&
 make -j $JOBCOUNT > /dev/null &&
