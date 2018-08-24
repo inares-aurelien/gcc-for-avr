@@ -1,24 +1,21 @@
 language: cpp
 sudo: required
 dist: trusty
-compiler:
-- gcc
-os:
-- linux
+compiler: gcc
+os: linux
 branches:
-  only:
-  - master
+  only: master
 
-#addons:
-#  apt:
-#    config:
-#      retries: true
-#    sources:
-#      - ubuntu-toolchain-r-test
-#    packages:
-      # - gcc-8
-      # - g++-8
-#      - wget
+addons:
+  apt:
+    config:
+    retries: true
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-8
+      - g++-8
+      - wget
 #      - bzip2
       # - binutils
       # - locate
@@ -46,32 +43,36 @@ env:
 
 before_install:
   - pwd
+  - echo $HOME
   - df -h
   # - gcc-8 --version
   # - g++-8 --version
-  # - export CC="gcc-8"
-  # - export CXX="g++-8"
-  - unset CC CXX
+  - export  CC="gcc-8"
+  - export CXX="g++-8"
+  # sudo unlink /usr/bin/g++ && sudo ln -s $(whereis g++-8) /usr/bin/g++
+  # - unset CC CXX
   - export PATH="$PATH":"$PREFIX"/bin
 
 script:
-  - sh build_binutils.sh
-  - travis_wait 60 sh build_gcc.sh
-  - sh build_avr-libc.sh
+  - time sh build_binutils.sh
+  - travis_wait 60 time sh build_gcc.sh
+  - time sh build_avr-libc.sh
 
 after_script:
   - ls -alh $PREFIX/bin
   - du -h --max-depth=1
   - cd $PREFIX
   - du -h --max-depth=1
-  - cd ..
+  - cd /home/travis/build/inares/gcc-for-avr/test
+  - make || true
 
 before_deploy:
-  - tar -cjf $HOME/avr-${VER_GCC}.tar.bz2 avr-gcc
+  - cd /home/travis/build/inares/ && tar -cjf $HOME/avr-${VER_GCC}.tar.bz2 avr-gcc
   - git config --local user.name "INARES"
   - git config --local user.email "dev@inares.org"
   - git tag avr-${VER_GCC}
-  
+
+# https://docs.travis-ci.com/user/deployment/releases/
 deploy:
   provider: releases
   api_key:
