@@ -19,7 +19,7 @@ tar xf ${BINUTILS}.tar.xz &&
 
 echo "\n\nConfigure ${MYNAME} ...\n" &&
 mkdir -p ${BINUTILS}/obj-avr && cd ${BINUTILS}/obj-avr &&
-../configure --prefix="$PREFIX" --target=avr --disable-nls --disable-doc --quiet > /dev/null &&
+../configure --prefix="$PREFIX" --target=avr --host=amd64 --build=amd64 --disable-nls --disable-doc --quiet > /dev/null &&
 
 echo "\n\nBuild ${MYNAME} ...\n" &&
 make -j $JOBCOUNT > /dev/null &&

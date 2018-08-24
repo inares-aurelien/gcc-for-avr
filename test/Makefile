@@ -16,8 +16,8 @@ OBJ      = $(SOURCES:%.c=%.o)
 override CFLAGS  = -g -Wall $(OPTIMIZE) -mmcu=$(MCU) $(DEFS)
 override LDFLAGS = -Wl,-Map,$(PRG).map
 
-OBJCOPY = $(PREFIX)avr-objcopy
-OBJDUMP = $(PREFIX)avr-objdump
+OBJCOPY = $(PREFIX)bin/avr-objcopy
+OBJDUMP = $(PREFIX)bin/avr-objdump
 
 all: $(PRG).elf lst text eeprom
 
@@ -75,7 +75,7 @@ esrec: $(PRG)_eeprom.srec
 
 
 # Every thing below here is used by avr-libc's build system and can be ignored by the casual user.
-FIG2DEV	   = $(PREFIX)fig2dev
+FIG2DEV	   = fig2dev
 EXTRA_CLEAN_FILES = *.hex *.bin *.srec
 
 dox: eps png pdf

@@ -20,7 +20,7 @@ tar xjf ${AVR_LIBC}.tar.bz2 &&
 
 echo "\n\nConfigure ${MYNAME} ...\n" &&
 cd ${AVR_LIBC} &&
-CC="$PREFIX/avr-gcc" CXX="$PREFIX/avr-g++" ./configure --prefix="$PREFIX" --build=`./config.guess` --host=avr --disable-doc --quiet &&
+./configure --prefix="$PREFIX" --build=`./config.guess` --host=avr --host=amd64 --build=amd64 --disable-doc --quiet &&
 
 echo "\n\nBuild ${MYNAME} ...\n" &&
 make -j $JOBCOUNT > /dev/null &&
