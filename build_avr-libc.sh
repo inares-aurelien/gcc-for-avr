@@ -6,7 +6,7 @@ MYNAME="AVR-LibC"
 echo "\n*** Making ${MYNAME} ***\n"
 
 #define __AVR_LIBC_VERSION_STRING__ "2.0.0"
-VER_LIBC_ESCAPED="$(sed 's/\./\\\./g' <<< "${VER_LIBC}")"
+VER_LIBC_ESCAPED="$(sed 's/\./\\\./g' <<< \"${VER_LIBC}\")"
 RES_SED=$(sed -n '/__AVR_LIBC_VERSION_STRING__.*"${VER_LIBC_ESCAPED}"/p' ${PREFIX}/include/avr/version.h.in)
 if [ ! -z "$RES_SED" ] ; then
   echo "${MYNAME} is already OK for version ${VER_LIBC} --> We will do nothing"
