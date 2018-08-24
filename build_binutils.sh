@@ -6,7 +6,7 @@ MYNAME="binutils"
 echo "\n*** Making ${MYNAME} ***\n"
 
 $PREFIX/bin/PREFIX/avr-objdump --version || true
-if [ "$($PREFIX/bin/PREFIX/avr-objdump --version)" -eq "$VER_BINUTILS" ] ;
+if [ "$($PREFIX/bin/PREFIX/avr-objdump --version)" -eq "$VER_BINUTILS" ] ; then
   echo "${MYNAME} is already OK for version ${VER_LIBC} --> We will do nothing"
   exit 0
 fi
