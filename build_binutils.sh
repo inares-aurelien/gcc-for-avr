@@ -5,9 +5,10 @@
 MYNAME="binutils"
 echo "\n*** Making ${MYNAME} ***\n"
 
+# Handle cache
 $PREFIX/bin/avr-objdump --version || true
-VER_BIN=$($PREFIX/bin/avr-objdump --version | sed -n "/${VER_BINUTILS}/p")
-if [ ! -z "$VER_BIN" ] ; then
+IS_BINUTILS=$($PREFIX/bin/avr-objdump --version | sed -n "/${VER_BINUTILS}/p")
+if [ -n "$IS_BINUTILS" ] ; then
   echo "${MYNAME} is already OK for version ${VER_BINUTILS} --> We will do nothing"
   exit 0
 fi
@@ -18,7 +19,7 @@ tar xf ${BINUTILS}.tar.xz &&
 
 echo "\n\nConfigure ${MYNAME} ...\n" &&
 mkdir -p ${BINUTILS}/obj-avr && cd ${BINUTILS}/obj-avr &&
-../configure --prefix="$PREFIX" --target=avr --disable-nls > /dev/null &&
+../configure --prefix="$PREFIX" --target=avr --disable-nls --disable-doc --quiet > /dev/null &&
 
 echo "\n\nBuild ${MYNAME} ...\n" &&
 make -j $JOBCOUNT > /dev/null &&

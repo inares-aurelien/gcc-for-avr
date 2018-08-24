@@ -40,22 +40,17 @@ before_install:
   - df -h
   - export CC="gcc-8" CXX="g++-8"
   - export BINUTILS="binutils-${VER_BINUTILS}" GCC="gcc-${VER_GCC}" AVR_LIBC="avr-libc-${VER_LIBC}"
+  - export PATH="$PATH":"$PREFIX"/bin
   # sudo unlink /usr/bin/g++ && sudo ln -s $(whereis g++-8) /usr/bin/g++
   # - unset CC CXX
-  - export PATH="$PATH":"$PREFIX"/bin
 
 script:
   - time sh build_binutils.sh
   - travis_wait 60 time sh build_gcc.sh
   - time sh build_avr-libc.sh
 
-after_script:
-  - ls -alh $PREFIX/bin
-  - du -h --max-depth=1
-  - cd $PREFIX
-  - du -h --max-depth=1
-  - cd /home/travis/build/inares/gcc-for-avr/test
-  - make || true
+# after_success:
+  # - make || true
 
 before_deploy:
   - cd /home/travis/build/inares/ && tar -cjf $HOME/avr-${VER_GCC}.tar.bz2 avr-gcc
@@ -71,3 +66,11 @@ deploy:
   file: $HOME/avr-${VER_GCC}.tar.bz2
   skip_cleanup: true
   overwrite: true
+
+after_script:
+  - ls -alh $PREFIX/bin
+  - du -h --max-depth=1
+  - cd $PREFIX
+  - du -h --max-depth=1
+  - cd /home/travis/build/inares/gcc-for-avr/test
+  - make || true
