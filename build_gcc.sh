@@ -6,10 +6,10 @@
 MYNAME="avr-gcc"
 echo "\n*** Making ${MYNAME} ***\n"
 
-$PREFIX/bin/PREFIX/avr-gcc --version || true
-VER_GCC=$($PREFIX/bin/PREFIX/avr-gcc --version | sed -n "/${VER_BINUTILS}/p")
+$PREFIX/bin/avr-gcc --version || true
+VER_GCC=$($PREFIX/bin/avr-gcc --version | sed -n "/${VER_GCC}/p")
 if [ ! -z "$VER_GCC" ] ; then
-  echo "${MYNAME} is already OK for version ${VER_LIBC} --> We will do nothing"
+  echo "${MYNAME} is already OK for version ${VER_GCC} --> We will do nothing"
   exit 0
 fi
 
