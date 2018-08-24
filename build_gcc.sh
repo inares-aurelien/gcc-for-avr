@@ -6,14 +6,19 @@
 MYNAME="avr-gcc"
 echo "\n*** Making ${MYNAME} ***\n"
 
-echo "\n\nDownloading and extracting ${MYNAME} ...\n"
-if [ ! -f "${VER_GCC}/README" ]; then
-  wget http://mirror.rit.edu/gnu/gcc/${VER_GCC}/${VER_GCC}.tar.xz > /dev/null &&
-  tar xf ${VER_GCC}.tar.xz > /dev/null
+$PREFIX/bin/PREFIX/avr-gcc --version || true
+VER_GCC=$($PREFIX/bin/PREFIX/avr-gcc --version | sed -n "/${VER_BINUTILS}/p")
+if [ ! -z "$VER_GCC" ] ;
+  echo "${MYNAME} is already OK for version ${VER_LIBC} --> We will do nothing"
+  exit 0
 fi
 
+echo "\n\nDownloading and extracting ${MYNAME} ...\n"
+wget http://mirror.rit.edu/gnu/gcc/${GCC}/${GCC}.tar.xz > /dev/null &&
+tar xf ${GCC}.tar.xz > /dev/null
+
 echo "\n\nInstalling dependencies for ${MYNAME} ...\n"
-mkdir -p ${VER_GCC}/obj-avr && cd ${VER_GCC} &&
+mkdir -p ${GCC}/obj-avr && cd ${GCC} &&
 sed -i 's/ftp:\/\/gcc\.gnu\.org/http:\/\/gcc\.gnu\.org/' ./contrib/download_prerequisites &&
 ./contrib/download_prerequisites &&
 
