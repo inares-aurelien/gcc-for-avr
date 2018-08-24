@@ -26,9 +26,9 @@ branches:
 cache:
   directories:
     - /home/travis/build/inares/avr-gcc/
-    - /home/travis/build/inares/gcc-for-avr/binutils-2.31.1/obj-avr
-    - /home/travis/build/inares/gcc-for-avr/gcc-8.2.0/obj-avr
-    - /home/travis/build/inares/gcc-for-avr/avr-libc-2.0.0
+    # - /home/travis/build/inares/gcc-for-avr/binutils-2.31.1/obj-avr
+    # - /home/travis/build/inares/gcc-for-avr/gcc-8.2.0/obj-avr
+    # - /home/travis/build/inares/gcc-for-avr/avr-libc-2.0.0
 
 git:
   depth: 1
@@ -45,29 +45,29 @@ env:
   - PREFIX=/home/travis/build/inares/avr-gcc
 
 before_install:
-- pwd
-- df -h
-# - gcc-8 --version
-# - g++-8 --version
-# - export CC="gcc-8"
-# - export CXX="g++-8"
-- unset CC CXX
-- export PATH="$PATH":"$PREFIX_LINUX"/bin
+  - pwd
+  - df -h
+  # - gcc-8 --version
+  # - g++-8 --version
+  # - export CC="gcc-8"
+  # - export CXX="g++-8"
+  - unset CC CXX
+  - export PATH="$PATH":"$PREFIX"/bin
 
 script:
-- sh build_binutils.sh
-- travis_wait 60 sh build_gcc.sh
-- sh build_avr-libc.sh
+  - sh build_binutils.sh
+  - travis_wait 60 sh build_gcc.sh
+  - sh build_avr-libc.sh
 
 after_script:
-- ls -alh $PREFIX/bin
-- du -h --max-depth=1
-- cd $PREFIX
-- du -h --max-depth=1
-- cd ..
-- tar -cjf $HOME/avr-${VER_GCC}.tar.bz2 avr-gcc
+  - ls -alh $PREFIX/bin
+  - du -h --max-depth=1
+  - cd $PREFIX
+  - du -h --max-depth=1
+  - cd ..
 
 before_deploy:
+  - tar -cjf $HOME/avr-${VER_GCC}.tar.bz2 avr-gcc
   - git config --local user.name "INARES"
   - git config --local user.email "dev@inares.org"
   - git tag avr-${VER_GCC}
