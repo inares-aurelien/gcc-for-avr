@@ -2,8 +2,8 @@ PRG      = test
 MCU      = atmega328p
 OPTIMIZE = -Ofast
 
-DEFS     =
-LIBS     = -L/home/travis/build/inares/avr-gcc/share -I/home/travis/build/inares/avr-gcc/include
+DEFS     = -I/home/travis/build/inares/avr-gcc/include
+LIBS     = -L/home/travis/build/inares/avr-gcc/share
 
 PREFIX   = /home/travis/build/inares/avr-gcc/bin/
 CC       = $(PREFIX)avr-gcc
