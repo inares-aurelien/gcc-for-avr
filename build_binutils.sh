@@ -5,14 +5,18 @@
 MYNAME="binutils"
 echo "\n*** Making ${MYNAME} ***\n"
 
-echo "\n\nDownloading and extracting ${MYNAME} ...\n"
-if [ ! -f "${VER_BINUTILS}/README" ]; then
-  wget http://ftp.gnu.org/gnu/binutils/${VER_BINUTILS}.tar.xz &&
-  tar xf ${VER_BINUTILS}.tar.xz
+$PREFIX/bin/PREFIX/avr-objdump --version || true
+if [ "$($PREFIX/bin/PREFIX/avr-objdump --version)" -eq "$VER_BINUTILS" ] ;
+  echo "${MYNAME} is already OK for version ${VER_LIBC} --> We will do nothing"
+  exit 0
 fi
 
-echo "\n\nConfigure ${MYNAME} ...\n"
-mkdir -p ${VER_BINUTILS}/obj-avr && cd ${VER_BINUTILS}/obj-avr &&
+echo "\n\nDownloading and extracting ${MYNAME} ...\n"
+wget http://ftp.gnu.org/gnu/binutils/${BINUTILS}.tar.xz &&
+tar xf ${BINUTILS}.tar.xz &&
+
+echo "\n\nConfigure ${MYNAME} ...\n" &&
+mkdir -p ${BINUTILS}/obj-avr && cd ${BINUTILS}/obj-avr &&
 ../configure --prefix="$PREFIX" --target=avr --disable-nls > /dev/null &&
 
 echo "\n\nBuild ${MYNAME} ...\n" &&
@@ -23,5 +27,3 @@ make install > /dev/null &&
 
 cd ../../ &&
 echo ""
-
-
