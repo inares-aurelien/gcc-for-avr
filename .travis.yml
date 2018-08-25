@@ -52,17 +52,17 @@ script:
   # - make || true
 
 before_deploy:
-  - cd /home/travis/build/inares/ && tar -cjf $HOME/avr-${VER_GCC}.tar.bz2 avr-gcc
+  - cd $PREFIX/.. && tar -cjf $HOME/avr-${GCC}.tar.bz2 avr-gcc
   - git config --local user.name "INARES"
   - git config --local user.email "dev@inares.org"
-  - git tag avr-${VER_GCC}
+  - git tag avr-${GCC}
 
 # https://docs.travis-ci.com/user/deployment/releases/
 deploy:
   provider: releases
   api_key:
     secure: lLWtrqrv7o6gb9i0H+z4a8iOX28qf1VIu+Ld2/yzkk6cvneQrGrmVTald8mMbyIi7WkrD/uqHHf/1JIJdw5hrXanwdheFzcLXfJfzy0Ysk7K8VjYioM6YES7ipLKFroEuZp0VyUKoA0xmvWNk5efNlNelBUremlfg3Y+/+mnvQj7klzZGOkNi7gXsoE7Sm9tK1SX6MnZyD/7IueFSK/Ku74kfn7t4WtDQspsGKF21O6zw069EOeT9/BIHNYbRYDTGcfGkctvvil+LsHZTHXgKqGgVT3wR4RkCZ/UkRAHCNuIFRDJZDu2kuGUrz4+LdY8SkPcaycvbv/v0zbwsMARpTaLoqJJbZzC/VXEMzTwGzl+u0G5JVnJoS8q0606OgM0zlio8xVIdk/+KrVVXlSUWNl6U48fLADZlXgT7eKwKosemUdGG16HuZFOBw06BECg3aMZRFh+l7PJpopb040LTCeX7L3iAHRbKKlJHH8Wrq/2R3HxEPfexXjsO4otjMMqPXXfx7LNZQDBDpwQsqmRG/TDw603gJcQ2IHjaq0H9l+7JGNqfpExnzyIbOwiVn6YHU/3DpFSrIFsuCG8O0BTfp7b9vhkFwXHMTldhsoUcOfIy2hNSsfDdy4xPUkBeQ+/uGyUrFsAUiBXMayOfzzAhJveCXXvcV7TMTnHFcy3XNg=
-  file: $HOME/avr-${VER_GCC}.tar.bz2
+  file: $HOME/avr-${GCC}.tar.bz2
   skip_cleanup: true
   overwrite: true
 
