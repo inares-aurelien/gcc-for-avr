@@ -6,16 +6,16 @@ os: linux
 branches:
   only: master
 
-addons:
-  apt:
-    config:
-    retries: true
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-8
-      - g++-8
-      - wget
+#addons:
+#  apt:
+#    config:
+#    retries: true
+#    sources:
+#      - ubuntu-toolchain-r-test
+#    packages:
+#      - gcc-8
+#      - g++-8
+#      - wget
 
 cache:
   directories:
@@ -35,14 +35,13 @@ env:
   - PREFIX=/home/travis/avr-gcc
 
 before_install:
-  - free -h
   - echo $HOME && pwd
   - df -h
-  - export CC="gcc-8" CXX="g++-8"
+ # - export CC="gcc-8" CXX="g++-8"
+  - unset CC CXX
   - export BINUTILS="binutils-${VER_BINUTILS}" GCC="gcc-${VER_GCC}" AVR_LIBC="avr-libc-${VER_LIBC}"
   - export PATH="$PATH":"$PREFIX"/bin
   # sudo unlink /usr/bin/g++ && sudo ln -s $(whereis g++-8) /usr/bin/g++
-  # - unset CC CXX
 
 script:
   - time sh build_binutils.sh
