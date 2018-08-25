@@ -20,6 +20,7 @@ branches:
 cache:
   directories:
     - /home/travis/avr-gcc/
+    - /home/travis/output/
 
 git:
   depth: 1
@@ -33,6 +34,7 @@ env:
   - VER_GCC="8.2.0"
   - VER_LIBC="2.0.0"
   - PREFIX=/home/travis/avr-gcc
+  - OUTPUT=/home/travis/output
 
 before_install:
   - echo $HOME && pwd
@@ -40,21 +42,18 @@ before_install:
  # - export CC="gcc-8" CXX="g++-8"
   - unset CC CXX
   - export BINUTILS="binutils-${VER_BINUTILS}" GCC="gcc-${VER_GCC}" AVR_LIBC="avr-libc-${VER_LIBC}"
-  - export PATH="$PATH":"$PREFIX"/bin
-  # sudo unlink /usr/bin/g++ && sudo ln -s $(whereis g++-8) /usr/bin/g++
+  - export PATH="$PATH":$PREFIX/bin RELEASE=$OUTPUT/avr-${GCC}.tar.bz2
 
 script:
   - time sh build_binutils.sh
   - travis_wait 60 time sh build_gcc.sh
   - time sh build_avr-libc.sh
 
-# after_success:
-  # - make || true
-
 before_deploy:
-  - cd $PREFIX/.. && tar -cjf $HOME/avr-${GCC}.tar.bz2 avr-gcc
-  - git config --local user.name "INARES"
-  - git config --local user.email "dev@inares.org"
+  - mkdir -p $OUTPUT
+  - if [ ! -f "$RELEASE" ]; then echo "\n*** Creating archive file with avr-${GCC} ***" && cd $PREFIX/.. && tar -cjf $RELEASE avr-gcc && ls -lh $RELEASE ; fi
+  - git config --global user.name "INARES"
+  - git config --global user.email "dev@inares.org"
   - git tag avr-${GCC}
 
 # https://docs.travis-ci.com/user/deployment/releases/
@@ -62,14 +61,14 @@ deploy:
   provider: releases
   api_key:
     secure: lLWtrqrv7o6gb9i0H+z4a8iOX28qf1VIu+Ld2/yzkk6cvneQrGrmVTald8mMbyIi7WkrD/uqHHf/1JIJdw5hrXanwdheFzcLXfJfzy0Ysk7K8VjYioM6YES7ipLKFroEuZp0VyUKoA0xmvWNk5efNlNelBUremlfg3Y+/+mnvQj7klzZGOkNi7gXsoE7Sm9tK1SX6MnZyD/7IueFSK/Ku74kfn7t4WtDQspsGKF21O6zw069EOeT9/BIHNYbRYDTGcfGkctvvil+LsHZTHXgKqGgVT3wR4RkCZ/UkRAHCNuIFRDJZDu2kuGUrz4+LdY8SkPcaycvbv/v0zbwsMARpTaLoqJJbZzC/VXEMzTwGzl+u0G5JVnJoS8q0606OgM0zlio8xVIdk/+KrVVXlSUWNl6U48fLADZlXgT7eKwKosemUdGG16HuZFOBw06BECg3aMZRFh+l7PJpopb040LTCeX7L3iAHRbKKlJHH8Wrq/2R3HxEPfexXjsO4otjMMqPXXfx7LNZQDBDpwQsqmRG/TDw603gJcQ2IHjaq0H9l+7JGNqfpExnzyIbOwiVn6YHU/3DpFSrIFsuCG8O0BTfp7b9vhkFwXHMTldhsoUcOfIy2hNSsfDdy4xPUkBeQ+/uGyUrFsAUiBXMayOfzzAhJveCXXvcV7TMTnHFcy3XNg=
-  file: $HOME/avr-${GCC}.tar.bz2
+  file: $RELEASE
   skip_cleanup: true
   overwrite: true
 
 after_script:
   - ls -alh $PREFIX/bin
-  - du -h --max-depth=1
-  - cd $PREFIX
-  - du -h --max-depth=1
+  - ls -alh $RELEASE
+  - cd $HOME   && du -h --max-depth=1
+  - cd $PREFIX && du -h --max-depth=1
   - cd /home/travis/build/inares/gcc-for-avr/test
   - make || true
