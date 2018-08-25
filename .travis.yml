@@ -43,6 +43,7 @@ before_install:
   - unset CC CXX
   - export BINUTILS="binutils-${VER_BINUTILS}" GCC="gcc-${VER_GCC}" AVR_LIBC="avr-libc-${VER_LIBC}"
   - export PATH="$PATH":$PREFIX/bin RELEASE=$OUTPUT/avr-${GCC}.tar.bz2
+  - mkdir -p $OUTPUT && cd $OUTPUT
 
 script:
   - time sh build_binutils.sh
@@ -50,10 +51,11 @@ script:
   - time sh build_avr-libc.sh
 
 before_deploy:
-  - mkdir -p $OUTPUT
   - if [ ! -f "$RELEASE" ]; then echo "\n*** Creating archive file with avr-${GCC} ***" && cd $PREFIX/.. && tar -cjf $RELEASE avr-gcc && ls -lh $RELEASE ; fi
-  - git config --global user.name "INARES"
-  - git config --global user.email "dev@inares.org"
+  - echo $TRAVIS_BUILD_DIR
+  - cd /home/travis/build/inares/gcc-for-avr
+  - git config --local user.name "INARES"
+  - git config --local user.email "dev@inares.org"
   - git tag avr-${GCC}
 
 # https://docs.travis-ci.com/user/deployment/releases/
@@ -67,8 +69,8 @@ deploy:
 
 after_script:
   - ls -alh $PREFIX/bin
-  - ls -alh $RELEASE
-  - cd $HOME   && du -h --max-depth=1
+  - ls -alh $OUTPUT
+  - cd $OUTPUT && du -h --max-depth=1
   - cd $PREFIX && du -h --max-depth=1
   - cd /home/travis/build/inares/gcc-for-avr/test
   - make || true
