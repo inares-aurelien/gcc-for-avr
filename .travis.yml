@@ -52,7 +52,7 @@ script:
   - time sh build_binutils.sh
   - travis_wait 60 time sh build_gcc.sh
   - time sh build_avr-libc.sh
-  - cd test
+  - cd $TRAVIS_BUILD_DIR/test
   - make && ls -alh
   - cd ..
 
@@ -69,9 +69,8 @@ deploy:
   overwrite: true
 
 after_script:
-  - ls -alh $PREFIX/bin
-  - ls -alh $PREFIX/include
-  - ls -alh $PREFIX/include/avr
+  - ls -alhR $PREFIX/
+  - tree $PREFIX/ || true
   - ls -alh $OUTPUT
   - cd $OUTPUT && du -h --max-depth=1
   - cd $PREFIX && du -h --max-depth=1
