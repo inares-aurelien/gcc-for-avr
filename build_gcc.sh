@@ -25,7 +25,7 @@ sed -i 's/ftp:\/\/gcc\.gnu\.org/http:\/\/gcc\.gnu\.org/' ./contrib/download_prer
 
 echo "\n\nConfigure ${MYNAME} ...\n" &&
 cd obj-avr &&
-../configure --prefix="$PREFIX" --disable-doc --quiet --enable-device-lib --target=avr --host=amd64 --build=amd64 --enable-languages=c,c++ --disable-nls --disable-libssp --with-dwarf2 --disable-libada --disable-shared --enable-static > /dev/null &&
+../configure --prefix="$PREFIX" --disable-doc --quiet --enable-device-lib --build=amd64 --host=avr --enable-languages=c,c++ --disable-nls --disable-libssp --with-dwarf2 --disable-libada --disable-shared --enable-static > /dev/null &&
 
 echo "\n\nBuild ${MYNAME} ...\n" &&
 make -j $JOBCOUNT > /dev/null &&
