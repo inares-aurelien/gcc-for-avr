@@ -10,7 +10,7 @@ echo "\n*** Making ${MYNAME} ***\n"
 VER_LIBC_ESCAPED=$(echo "${VER_LIBC}" | sed 's/\./\\\./g')
 RES_SED=$(sed -n '/__AVR_LIBC_VERSION_STRING__.*"${VER_LIBC_ESCAPED}"/p' ${PREFIX}/include/avr/version.h.in)
 if [ -n "$RES_SED" ] ; then
-  echo "\n  --> ${MYNAME} is already OK for version ${VER_LIBC} --> We will do nothing\n"
+  echo "\n  --> ${MYNAME} is already OK for version ${VER_LIBC} --> We will do build it.\n"
   exit 0
 fi
 
