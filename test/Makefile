@@ -1,4 +1,4 @@
-PRG      = test
+PRG      = blink
 MCU      = atmega328p
 OPTIMIZE = -Ofast
 

@@ -57,13 +57,13 @@ script:
   - cd ..
 
 before_deploy:
-  - if [ ! -f "$RELEASE" ]; then echo "\n*** Creating archive file with avr-${GCC} ***" && cd $PREFIX/.. && tar -cjf $RELEASE avr-gcc && ls -lh $RELEASE ; fi
+  - if [ ! -f "$RELEASE" ]; then echo -e "\n*** Creating archive file with avr-${GCC} ***" && cd $PREFIX/.. && tar -cjf $RELEASE avr-gcc && ls -lh $RELEASE ; fi
 
 # https://docs.travis-ci.com/user/deployment/releases/
 deploy:
   provider: releases
   api_key:
-    secure: lLWtrqrv7o6gb9i0H+z4a8iOX28qf1VIu+Ld2/yzkk6cvneQrGrmVTald8mMbyIi7WkrD/uqHHf/1JIJdw5hrXanwdheFzcLXfJfzy0Ysk7K8VjYioM6YES7ipLKFroEuZp0VyUKoA0xmvWNk5efNlNelBUremlfg3Y+/+mnvQj7klzZGOkNi7gXsoE7Sm9tK1SX6MnZyD/7IueFSK/Ku74kfn7t4WtDQspsGKF21O6zw069EOeT9/BIHNYbRYDTGcfGkctvvil+LsHZTHXgKqGgVT3wR4RkCZ/UkRAHCNuIFRDJZDu2kuGUrz4+LdY8SkPcaycvbv/v0zbwsMARpTaLoqJJbZzC/VXEMzTwGzl+u0G5JVnJoS8q0606OgM0zlio8xVIdk/+KrVVXlSUWNl6U48fLADZlXgT7eKwKosemUdGG16HuZFOBw06BECg3aMZRFh+l7PJpopb040LTCeX7L3iAHRbKKlJHH8Wrq/2R3HxEPfexXjsO4otjMMqPXXfx7LNZQDBDpwQsqmRG/TDw603gJcQ2IHjaq0H9l+7JGNqfpExnzyIbOwiVn6YHU/3DpFSrIFsuCG8O0BTfp7b9vhkFwXHMTldhsoUcOfIy2hNSsfDdy4xPUkBeQ+/uGyUrFsAUiBXMayOfzzAhJveCXXvcV7TMTnHFcy3XNg=
+    secure: cRBCrb3WGpu4OfVgbU9vXpYWdd+ONsGZvAu6TK7gA7JJFFSPyfNyFXMZnNWM4P6qfSMnbqMPTGt7cV3Kozu0PyE9PYMsqGYWLrJLvqX4Wg5pGO2KIhzunEkRUt+5G9aeBAj34wHwHZ9CZjU9T5spVZ0KDHrCo1NdDWqtezVe3h8F49d5sx8koU66VVRNXeDt17emDdZNvAgbHfpTQ0U95VTDP/DBD1YY8OG2FK9MVwBCSBWhv9MHBg7L8jUlnB6vsJbkv3ll0ROivc2qkgjeeWIeLuARJISl2SaBqk/jFx6FO8ihVrsX9854mft6d6uqqEcQFbraN7b6QFOEs8Iqy7RsAJzZQiJYRh6QApEhZB+hrVw/vrxHQpExCCs4vN7VCVKIiwDtghb2BpDXcAudc9EUV51J8jfZ2rHZ7Nvk0Wb4F1yHJmlYBJ3y8iEm4WrRfQ9j4oZa1JQbMdbniU4C9k/aZscpd0Fz9b1V8XoTa8KHITyqizX7Wx3xN24mgs/3tp507O9JO6C321sjplMnyU0zgCZ98kXukeDLnXEPSS+UpCOzF4BRfw16MibnY85vGbQyilNZd5D7GgzxMu/sGkzilJSm+cUWEIdfXv2hRzh9W9z4fDhcnEcy8YlmC4+wIRJJupYRJQRv3cdBnb5tgtdtccPhOrKwIWxav2sC0/E=
   file: $RELEASE
   skip_cleanup: true
   overwrite: true

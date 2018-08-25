@@ -9,7 +9,7 @@ echo "\n*** Making ${MYNAME} ***\n"
 $PREFIX/bin/avr-objdump --version || true
 IS_BINUTILS=$($PREFIX/bin/avr-objdump --version | sed -n "/${VER_BINUTILS}/p")
 if [ -n "$IS_BINUTILS" ] ; then
-  echo "\n  --> ${MYNAME} is already OK for version ${VER_BINUTILS} --> We will do build it.\n"
+  echo "\n  --> ${MYNAME} is already OK for version ${VER_BINUTILS} --> We will not build it.\n"
   exit 0
 fi
 

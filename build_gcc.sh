@@ -10,7 +10,7 @@ echo "\n*** Making ${MYNAME} ***\n"
 $PREFIX/bin/avr-gcc --version || true
 IS_GCC=$($PREFIX/bin/avr-gcc --version | sed -n "/${VER_GCC}/p")
 if [ -n "$IS_GCC" ] ; then
-  echo "\n  --> ${MYNAME} is already OK for version ${VER_GCC} --> We will do build it.\n"
+  echo "\n  --> ${MYNAME} is already OK for version ${VER_GCC} --> We will not build it.\n"
   exit 0
 fi
 
