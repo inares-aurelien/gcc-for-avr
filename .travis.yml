@@ -53,7 +53,8 @@ script:
   - travis_wait 60 time sh build_gcc.sh
   - time sh build_avr-libc.sh
   - cd $TRAVIS_BUILD_DIR/test
-  - make && ls -alh
+  - ls -alh
+  - make && ls -alh || true
   - cd ..
 
 before_deploy:
@@ -70,7 +71,6 @@ deploy:
 
 after_script:
   - ls -alhR $PREFIX/
-  - tree $PREFIX/ || true
   - ls -alh $OUTPUT
   - cd $OUTPUT && du -h --max-depth=1
   - cd $PREFIX && du -h --max-depth=1

@@ -8,7 +8,7 @@ echo "\n*** Making ${MYNAME} ***\n"
 # Handle cache
 #define __AVR_LIBC_VERSION_STRING__ "2.0.0"
 VER_LIBC_ESCAPED=$(echo "${VER_LIBC}" | sed 's/\./\\\./g')
-RES_SED=$(sed -n '/__AVR_LIBC_VERSION_STRING__.*"${VER_LIBC_ESCAPED}"/p' ${PREFIX}/include/avr/version.h.in)
+RES_SED=$(sed -n '/__AVR_LIBC_VERSION_STRING__.*"${VER_LIBC_ESCAPED}"/p' ${PREFIX}/avr/include/avr/version.hn)
 if [ -n "$RES_SED" ] ; then
   echo "\n  --> ${MYNAME} is already OK for version ${VER_LIBC} --> We will not build it.\n"
   exit 0

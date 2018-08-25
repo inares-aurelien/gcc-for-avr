@@ -3,8 +3,8 @@ MCU      = atmega328p
 OPTIMIZE = -Ofast
 
 PREFIX   = /home/travis/avr-gcc/
-DEFS     = -I$(PREFIX)include
-LIBS     = -L$(PREFIX)share
+DEFS     = -I$(PREFIX)avr/include
+LIBS     = -L$(PREFIX)share -L$(PREFIX)avr/lib
 
 CC       = $(PREFIX)bin/avr-gcc
 
